@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Webclient\Extension\Cache;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
+use Stuff\Webclient\Extension\Cache\ArrayCache;
 use Stuff\Webclient\Extension\Cache\Handler;
 use Stuff\Webclient\Extension\Cache\HttpFactory;
 use Webclient\Extension\Cache\Client;
@@ -21,9 +21,8 @@ class ClientTest extends TestCase
      */
     public function testClient()
     {
-        $items = [];
         $factory = new HttpFactory();
-        $cache = new ArrayCachePool(null, $items);
+        $cache = new ArrayCache();
         $client = new Client(
             new FakeClient(new Handler($factory, $factory)),
             $cache,
